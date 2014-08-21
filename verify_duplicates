@@ -1,0 +1,24 @@
+#!/bin/bash
+
+vim_script_file="$(dirname $0)/verify_duplicates.vim"
+
+if [ ! -f "$vim_script_file" ]
+	echo "Error: could not find vim script."
+	exit 1
+fi
+	
+if [ $# != 2 ]
+then
+	echo "Error: wrong parameters."
+	echo "Usage:"
+	echo "\tverify_duplicates backup_dir output_file"
+	exit 2
+fi
+
+directory_to_verify=$1
+output_file=$2
+
+find "${directory_to_verify}" -type f | xargs md5sum | tee "${output_file}"
+vim -c "source $vim_script_file|call RemoveUniqueEntries()|wq" "${output_file}"
+
+exit 0
