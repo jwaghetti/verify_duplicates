@@ -3,6 +3,7 @@
 vim_script_file="$(dirname $0)/verify_duplicates.vim"
 
 if [ ! -f "$vim_script_file" ]
+then
 	echo "Error: could not find vim script."
 	exit 1
 fi
