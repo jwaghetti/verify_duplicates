@@ -19,7 +19,7 @@ fi
 directory_to_verify=$1
 output_file=$2
 
-find "${directory_to_verify}" -type f | xargs md5sum | tee "${output_file}"
+find "${directory_to_verify}" -type f | xargs -d '\n' md5sum | tee "${output_file}"
 vim -c "source $vim_script_file|call RemoveUniqueEntries()|wq" "${output_file}"
 
 exit 0
